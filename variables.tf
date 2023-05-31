@@ -19,4 +19,5 @@ variable "zone" {
 locals {
   prefix = "terraform"
   proxy_instance_name = "cloudsql-proxy"
+  db_client_instance_name = "db-client"
 }

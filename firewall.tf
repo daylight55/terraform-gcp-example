@@ -11,7 +11,7 @@ resource "google_compute_firewall" "ssh-cloud-iap" {
   }
 
   # 対象のVMインスタンスのタグを指定する
-  target_tags = [local.proxy_instance_name]
+  target_tags = [local.proxy_instance_name, local.db_client_instance_name]
   # Cloud IAPのバックエンドIPアドレス範囲を指定する
   # https://cloud.google.com/iap/docs/using-tcp-forwarding#create-firewall-rule
   source_ranges = ["35.235.240.0/20"]

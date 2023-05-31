@@ -10,9 +10,10 @@ module "cloudsql-proxy" {
     "-enable_iam_login",
   ]
 
-  vm_zone       = var.zone
-  vm_subnetwork = google_compute_subnetwork.private["private-instance-subnet"].self_link
+  vm_machine_type = "e2-micro"
+  vm_zone         = var.zone
+  vm_subnetwork   = google_compute_subnetwork.private["private-instance-subnet"].self_link
 
   firewall_network       = google_compute_network.private_network.self_link
-  firewall_source_ranges = ["0.0.0.0/0"]
+  firewall_source_ranges = [local.private_subnets.private-instance-subnet.cidr]
 }
