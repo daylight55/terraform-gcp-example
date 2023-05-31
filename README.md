@@ -12,6 +12,10 @@ OU1[User]
 
 %%グループとサービス
 subgraph GC[GCP]
+  OU2[GCP<br>]
+end
+
+subgraph GC[GCP]
   subgraph GV[vpc-1]
     subgraph GS1[private-subnet-1]
       CP1("GCE<br>Cloud Auth Proxy")
@@ -24,6 +28,7 @@ end
 
 %%サービス同士の関係
 OU1 --"SSH"--> CP1
+CP1 --"Service connection"--> OU2
 CP1 --"Authenticated connection"---> DB1
 
 %%グループのスタイル
@@ -74,11 +79,12 @@ terraform apply
 
 
 # Requirements
-- Enable APIs in GoogleCloud Project  
+- Allow APIs to GoogleCloud Project
   https://console.cloud.google.com/apis/dashboard?project=<YOUR_PROJECT_ID>
   - Compute Engine API
   - Cloud Resource Manager API
   - Service Networking API
   - Cloud SQL Admin API
+  - Identity and Access Management (IAM) API
 - IAM permissions to notice
   - servicenetworking.services.addPeering
