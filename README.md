@@ -1,24 +1,26 @@
 # Terraform GCP Examples
 
-Firstly, we will build CloudSQL on a Private subnet and connected from GCE with Cloud Auth Proxy.
+Firstly, we will build CloudSQL on a Private subnet and connected from GCE with Cloud SQL Auth Proxy.
 
-## 1. CloudSQL on PrivateSubnet connected from GCE on vary subnet
+## 1. CloudSQL on PrivateSubnet connected from GCE with Cloud SQL Auth Proxy
 
 ```mermaid
-flowchart LR
+graph LR
 
 %%外部要素のUser
-OU1[User]
+subgraph other
+  OU[User]
+end
 
 %%グループとサービス
 subgraph GC[GCP]
-  OU2[GCP<br>]
-end
+    OU1[Cloud Identity-Aware Proxy]
+    OU2[GCP Service API]
 
-subgraph GC[GCP]
   subgraph GV[vpc-1]
     subgraph GS1[private-subnet-1]
-      CP1("GCE<br>Cloud Auth Proxy")
+      CP1("GCE<br>PostgreSQL Client")
+      CP2("GCE<br>Cloud SQL Auth Proxy")
     end
     subgraph GS2[private-subnet-2]
       DB1[("CloudSQL<br>PostgreSQL")]
@@ -27,10 +29,15 @@ subgraph GC[GCP]
 end
 
 %%サービス同士の関係
-OU1 --"SSH"--> CP1
-CP1 --"Service connection"--> OU2
-OU2 --> CP1
-CP1 --"Authenticated connection"---> DB1
+%% SSH
+OU -->OU1
+OU1 --"SSH over Cloud IAP"-->  CP1
+%% Cloud SQL Auth Proxy authentication
+CP1 --> CP2
+CP2 --"Service connection & IAM Authentivation"--> OU2
+%% DB connection
+OU2 --> CP2
+CP2 --"DB connection"---> DB1
 
 %%グループのスタイル
 classDef SGC fill:none,color:#345,stroke:#345
