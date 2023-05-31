@@ -74,7 +74,7 @@ terraform apply
 
 
 # Requirements
-- Enable APIs in GoogleCloud Project
+- Enable APIs in GoogleCloud Project  
   https://console.cloud.google.com/apis/dashboard?project=<YOUR_PROJECT_ID>
   - Compute Engine API
   - Cloud Resource Manager API
