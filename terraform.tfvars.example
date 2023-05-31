@@ -1,0 +1,4 @@
+project_name = "<YOUR_PROJECT_ID>"
+credential   = "<YOUR_CREDENTIAL_KEY_PATH>"
+region       = "asia-northeast1"
+zone         = "asia-northeast1-a"

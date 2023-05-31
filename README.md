@@ -67,7 +67,6 @@ class DB1 SDB
 
 classDef SST fill:#493,color:#fff,stroke:#fff
 class ST1 SST
-
 ```
 
 
@@ -75,6 +74,7 @@ class ST1 SST
 
 Setting local variables into `terraform.tfvars`
 ```
+cp terraform.tfvars.example terraform.tfvars
 vi terraform.tfvars
 ```
 
