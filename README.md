@@ -57,6 +57,7 @@ class ST1 SST
 
 ```
 
+
 # Getting Started
 
 Setting local variables into `terraform.tfvars`
@@ -70,3 +71,14 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+
+# Requirements
+- Enable APIs in GoogleCloud Project
+  https://console.cloud.google.com/apis/dashboard?project=<YOUR_PROJECT_ID>
+  - Compute Engine API
+  - Cloud Resource Manager API
+  - Service Networking API
+  - Cloud SQL Admin API
+- IAM permissions to notice
+  - servicenetworking.services.addPeering
