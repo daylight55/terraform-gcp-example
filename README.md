@@ -29,6 +29,7 @@ end
 %%サービス同士の関係
 OU1 --"SSH"--> CP1
 CP1 --"Service connection"--> OU2
+OU2 --> CP1
 CP1 --"Authenticated connection"---> DB1
 
 %%グループのスタイル
@@ -77,6 +78,11 @@ terraform plan
 terraform apply
 ```
 
+SSH into CloudAuth Proxy
+```
+example)
+gcloud compute ssh --zone "asia-northeast1-a" "cloudsql-proxy" --tunnel-through-iap --project "xxx"
+```
 
 # Requirements
 - Allow APIs to GoogleCloud Project
