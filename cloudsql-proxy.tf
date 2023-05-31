@@ -11,7 +11,7 @@ module "cloudsql-proxy" {
   ]
 
   vm_zone       = var.zone
-  vm_subnetwork = google_compute_subnetwork.private_network["private-instance-subnet"].self_link
+  vm_subnetwork = google_compute_subnetwork.private["private-instance-subnet"].self_link
 
   firewall_network       = google_compute_network.vpc.self_link
   firewall_source_ranges = ["0.0.0.0/0"]
