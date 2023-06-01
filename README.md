@@ -16,27 +16,27 @@ end
 subgraph GC[GCP]
     OU1[Cloud Identity-Aware Proxy]
 
-  subgraph GV[vpc-1]
+  subgraph GV1[public-vpc]
     subgraph GS1[public-subnet-1]
       CP1("GCE<br>PostgreSQL Client")
       CP2("GCE<br>Cloud SQL Auth Proxy")
     end
   end
-  subgraph GV[vpc-2]
+  subgraph GV2[private-vpc]
     %% ※サブネットは指定できない
-    DB1[("CloudSQL<br>PostgreSQL")]
+    subgraph GS2[Allocated range]
+      OU2[VPC Peering]
+    end
   end
-  subgraph GV[GCP ]
-    subgraph GS2[]
-      OU2[GCP servicenetworking]
+
+  subgraph GV3[GCP Service Producer VPC]
+    DB1[("CloudSQL<br>PostgreSQL")]
+    subgraph GS3[s]
+      OU3[GCP servicenetworking]
     end
   end
 
 end
-
-
-※ GCPはVPC全体でルートを定義するためパブリックサブネット/プライベートサブネットの区別はない。外部IPアドレスを付与しなければインターネットに疎通できないため、プライベート定義をしたいものには外部IPアドレスを付与しなければよい。
-[Google CloudのVPCを基礎から始める](https://zenn.dev/google_cloud_jp/articles/google-cloud-vpc-101)
 
 %%サービス同士の関係
 %% SSH
@@ -78,6 +78,8 @@ class DB1 SDB
 classDef SST fill:#493,color:#fff,stroke:#fff
 class ST1 SST
 ```
+※ GCPはVPC全体でルートを定義するためパブリックサブネット/プライベートサブネットの区別はない。外部IPアドレスを付与しなければインターネットに疎通できないため、プライベート定義をしたいものには外部IPアドレスを付与しなければよい。  
+参考: [Google CloudのVPCを基礎から始める](https://zenn.dev/google_cloud_jp/articles/google-cloud-vpc-101)
 
 
 # Getting Started
