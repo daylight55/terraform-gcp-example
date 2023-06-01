@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "ssh-cloud-iap" {
   name    = "ssh-cloud-iap-firewall"
-  network = google_compute_network.vpc.name
+  network = google_compute_network.public_network.name
 
   direction = "INGRESS"
 

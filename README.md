@@ -1,6 +1,6 @@
 # Terraform GCP Examples
 
-Firstly, we will build CloudSQL on a Private subnet and connected from GCE with Cloud SQL Auth Proxy.
+Firstly, we will build CloudSQL and Cloud SQL Auth Proxy, DB Client instance.
 
 ## 1. CloudSQL on PrivateSubnet connected from GCE with Cloud SQL Auth Proxy
 
@@ -15,18 +15,28 @@ end
 %%グループとサービス
 subgraph GC[GCP]
     OU1[Cloud Identity-Aware Proxy]
-    OU2[GCP Service API]
 
   subgraph GV[vpc-1]
-    subgraph GS1[private-subnet-1]
+    subgraph GS1[public-subnet-1]
       CP1("GCE<br>PostgreSQL Client")
       CP2("GCE<br>Cloud SQL Auth Proxy")
     end
-    subgraph GS2[private-subnet-2]
-      DB1[("CloudSQL<br>PostgreSQL")]
+  end
+  subgraph GV[vpc-2]
+    %% ※サブネットは指定できない
+    DB1[("CloudSQL<br>PostgreSQL")]
+  end
+  subgraph GV[GCP ]
+    subgraph GS2[]
+      OU2[GCP servicenetworking]
     end
   end
+
 end
+
+
+※ GCPはVPC全体でルートを定義するためパブリックサブネット/プライベートサブネットの区別はない。外部IPアドレスを付与しなければインターネットに疎通できないため、プライベート定義をしたいものには外部IPアドレスを付与しなければよい。
+[Google CloudのVPCを基礎から始める](https://zenn.dev/google_cloud_jp/articles/google-cloud-vpc-101)
 
 %%サービス同士の関係
 %% SSH

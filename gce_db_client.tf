@@ -24,8 +24,8 @@ resource "google_compute_instance" "db_client" {
   }
 
   network_interface {
-    network = google_compute_network.private_network.id
-    # subnetwork = google_compute_subnetwork.private["private-instance-subnet"].id
+    network    = google_compute_network.public_network.id
+    subnetwork = google_compute_subnetwork.public_subnet["proxy"].id
 
     // Ephemeral public IP
     access_config {}
