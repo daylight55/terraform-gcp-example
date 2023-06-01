@@ -34,7 +34,7 @@ OU -->OU1
 OU1 --"SSH over Cloud IAP"-->  CP1
 %% Cloud SQL Auth Proxy authentication
 CP1 --> CP2
-CP2 --"Service connection & IAM Authentivation"--> OU2
+CP2 --"Service connection and IAM Authentication"--> OU2
 %% DB connection
 OU2 --> CP2
 CP2 --"DB connection"---> DB1
@@ -85,11 +85,26 @@ terraform plan
 terraform apply
 ```
 
+SSH into DB Client
+```
+gcloud compute ssh --zone "asia-northeast1-a" "db-client" --tunnel-through-iap --project "xxx"
+```
+
+Test DB connection
+```
+psql "host=<CLOUDSQL_AUTH_PROXY_PRIVATE_IP_ADDRESS> port=5432 sslmode=disable dbname=postgres user=postgres"
+```
+
+```
+
+```
+
+## Debug
 SSH into CloudAuth Proxy
 ```
-example)
 gcloud compute ssh --zone "asia-northeast1-a" "cloudsql-proxy" --tunnel-through-iap --project "xxx"
 ```
+
 
 # Requirements
 - Allow APIs to GoogleCloud Project
